@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Formação profissional em CFTV, redes, cabeamento, consultoria, cloud e backup. CONNECTION MOZAMBIQUE, LDA.">
+    <title>Formação Profissional | CONNECTION MOZAMBIQUE, LDA</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+
+    <style>
+        :root {
+            --cm-dark: #101820;
+            --cm-blue: #263746;
+            --cm-light: #E5E7EB;
+        }
+
+        body {
+            background: #f5f7fa;
+            color: #263746;
+        }
+
+        .cm-hero {
+            background: linear-gradient(120deg, #101820, #263746);
+            color: white;
+            padding: 75px 20px;
+        }
+
+        .cm-hero h1 {
+            font-weight: 800;
+        }
+
+        .cm-course {
+            height: 100%;
+            border: 0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,.08);
+            transition: transform .2s ease;
+        }
+
+        .cm-course:hover {
+            transform: translateY(-5px);
+        }
+
+        .cm-course-image {
+            display: block;
+            width: 100%;
+            height: 245px;
+            object-fit: cover;
+            background: #e5e7eb;
+        }
+
+        .cm-course .card-body {
+            padding: 25px;
+        }
+
+        .cm-course h2 {
+            font-size: 1.35rem;
+            font-weight: 750;
+            color: #101820;
+        }
+
+        .cm-course h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-top: 18px;
+        }
+
+        .cm-course ul {
+            padding-left: 20px;
+        }
+
+        .cm-course li {
+            margin-bottom: 6px;
+        }
+
+        .cm-btn {
+            background: #263746;
+            color: white;
+            border: 0;
+        }
+
+        .cm-btn:hover {
+            background: #101820;
+            color: white;
+        }
+
+        .cm-footer {
+            background: #101820;
+            color: white;
+            padding: 35px 0;
+        }
+
+        .cm-footer a {
+            color: #fff;
+        }
+
+        @media (max-width: 576px) {
+            .cm-course-image {
+                height: 200px;
+            }
+
+            .cm-hero {
+                padding: 50px 15px;
+            }
+        }
+    </style>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+
+<body>
+
+<header class="sn-header sticky-top">
+  <nav class="navbar navbar-expand-lg" aria-label="Navegação principal">
+    <div class="container">
+      <a class="navbar-brand" href="index.html" aria-label="CONNECTION MOZAMBIQUE - página inicial">
+        <img src="./public/logo.png" alt="CONNECTION MOZAMBIQUE" height="48">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Abrir menu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="offcanvas offcanvas-end" tabindex="-1" id="navMenu" aria-labelledby="navMenuLabel">
+        <div class="offcanvas-header">
+          <img src="./public/logo-white.svg" alt="CONNECTION MOZAMBIQUE" height="42" id="navMenuLabel">
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Fechar menu"></button>
+        </div>
+        <div class="offcanvas-body">
+          <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Início</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="servicos.html" id="ddServicos" role="button" data-bs-toggle="dropdown" aria-expanded="false">Serviços</a>
+              <ul class="dropdown-menu" aria-labelledby="ddServicos">
+                <li><h6 class="dropdown-header">Os nossos serviços</h6></li>
+                <li><a class="dropdown-item" href="servicos.html#redes"><i class="bi bi-hdd-network"></i> Redes &amp; Cabos</a></li>
+                <li><a class="dropdown-item" href="servicos.html#consultoria"><i class="bi bi-mortarboard"></i> Consultoria (Treinamento)</a></li>
+                <li><a class="dropdown-item" href="servicos.html#helpdesk"><i class="bi bi-headset"></i> Helpdesk</a></li>
+                <li><a class="dropdown-item" href="servicos.html#cftv"><i class="bi bi-camera-video"></i> CFTV</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item fw-semibold" href="servicos.html"><i class="bi bi-grid"></i> Ver todos os serviços</a></li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="solucoes.html" id="ddSolucoes" role="button" data-bs-toggle="dropdown" aria-expanded="false">Soluções</a>
+              <ul class="dropdown-menu" aria-labelledby="ddSolucoes">
+                <li><h6 class="dropdown-header">Soluções tecnológicas</h6></li>
+                <li><a class="dropdown-item" href="solucoes.html#infraestrutura"><i class="bi bi-diagram-3"></i> Infraestrutura e redes</a></li>
+                <li><a class="dropdown-item" href="solucoes.html#seguranca"><i class="bi bi-shield-lock"></i> Segurança digital</a></li>
+                <li><a class="dropdown-item" href="solucoes.html#continuidade"><i class="bi bi-cloud-check"></i> Backup e continuidade</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item fw-semibold" href="solucoes.html"><i class="bi bi-grid"></i> Ver todas as soluções</a></li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle active" href="sobre.html" id="ddEmpresa" role="button" data-bs-toggle="dropdown" aria-expanded="false">Empresa</a>
+              <ul class="dropdown-menu" aria-labelledby="ddEmpresa">
+                <li><h6 class="dropdown-header">Sobre a empresa</h6></li>
+                <li><a class="dropdown-item" href="sobre.html"><i class="bi bi-building"></i> Sobre nós</a></li>
+                <li><a class="dropdown-item" href="recursos.html"><i class="bi bi-journal-richtext"></i> Recursos e apoio</a></li>
+                <li><a class="dropdown-item" href="formacao.html"><i class="bi bi-people"></i> Formação</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="contacto.html"><i class="bi bi-envelope"></i> Contactos</a></li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contacto.html">Contacto</a>
+            </li>
+            <li class="nav-item ms-lg-1">
+              <a class="btn btn-sn-primary" href="orcamento.html">Pedir orçamento</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<header class="cm-hero text-center">
+    <div class="container">
+        <h1>Formação Profissional</h1>
+        <p class="lead mt-3">
+            Desenvolva competências técnicas em segurança electrónica,
+            redes informáticas e tecnologias de informação.
+        </p>
+        <a href="#cursos" class="btn btn-light btn-lg mt-3">
+            Conhecer os cursos
+        </a>
+    </div>
+</header>
+
+<main class="container py-5" id="cursos">
+
+    <div class="text-center mb-5">
+        <h2 class="fw-bold">Competências para crescer</h2>
+        <p>Capacitação de profissionais, empresas, jovens e comunidades, com foco na aplicação prática.</p>
+    </div>
+
+    <div class="row g-4">
+
+        <!-- CURSO 1: CFTV -->
+        <div class="col-lg-6">
+            <article class="card cm-course">
+                <img class="cm-course-image"
+                     src="https://images.unsplash.com/photo-1557597774-9d273605dfa9?auto=format&fit=crop&w=1200&q=85"
+                     alt="Sistema de videovigilância e câmaras CFTV"
+                     loading="lazy">
+
+                <div class="card-body">
+                    <h2>01. CFTV – Circuito Fechado de Televisão</h2>
+                    <p>Formação em instalação, configuração e manutenção de sistemas de videovigilância.</p>
+
+                    <h3>Objectivos</h3>
+                    <ul>
+                        <li>Conhecer os equipamentos e componentes de CFTV.</li>
+                        <li>Instalar câmaras analógicas e IP.</li>
+                        <li>Configurar DVR e NVR.</li>
+                        <li>Diagnosticar avarias e efectuar manutenção.</li>
+                    </ul>
+
+                    <h3>Conteúdos programáticos</h3>
+                    <ul>
+                        <li>Introdução à videovigilância e segurança electrónica.</li>
+                        <li>Tipos de câmaras, lentes e fontes de alimentação.</li>
+                        <li>Cablagem, conectores e transmissão de vídeo.</li>
+                        <li>Instalação e configuração de DVR/NVR.</li>
+                        <li>Acesso remoto e manutenção preventiva.</li>
+                        <li>Ética, moral, segurança e utilização de EPI/EPC.</li>
+                    </ul>
+
+                    <h3>Competências adquiridas</h3>
+                    <p>Instalação, configuração, manutenção e diagnóstico de sistemas CFTV.</p>
+
+                    <a class="btn cm-btn mt-2"
+                       href="mailto:admin@connecctionmozambique.com?subject=Inscricao%20no%20Curso%20CFTV">
+                        Solicitar informações
+                    </a>
+                </div>
+            </article>
+        </div>
+
+        <!-- CURSO 2: REDES E CABEAMENTO -->
+        <div class="col-lg-6">
+            <article class="card cm-course">
+                <img class="cm-course-image"
+                     src="https://images.unsplash.com/photo-1551703599-6b3e8379aa8b?auto=format&fit=crop&w=1200&q=85"
+                     alt="Equipamentos e infraestrutura de redes informáticas"
+                     loading="lazy">
+
+                <div class="card-body">
+                    <h2>02. Redes e Cabeamento Informático</h2>
+                    <p>Formação em montagem, organização, configuração e manutenção de redes informáticas.</p>
+
+                    <h3>Objectivos</h3>
+                    <ul>
+                        <li>Compreender os fundamentos das redes.</li>
+                        <li>Identificar cabos e equipamentos de rede.</li>
+                        <li>Montar e testar cabos de comunicação.</li>
+                        <li>Configurar equipamentos e ligações de rede.</li>
+                    </ul>
+
+                    <h3>Conteúdos programáticos</h3>
+                    <ul>
+                        <li>Fundamentos de redes LAN, WAN e WLAN.</li>
+                        <li>Topologias e modelos OSI e TCP/IP.</li>
+                        <li>Cabos UTP, FTP, fibra óptica e conectores.</li>
+                        <li>Crimpagem e teste de cabos RJ45.</li>
+                        <li>Switches, routers e pontos de acesso.</li>
+                        <li>Endereçamento IP, DHCP e DNS.</li>
+                        <li>Diagnóstico e manutenção de redes.</li>
+                    </ul>
+
+                    <h3>Competências adquiridas</h3>
+                    <p>Instalação, organização, configuração e resolução de problemas de redes.</p>
+
+                    <a class="btn cm-btn mt-2"
+                       href="mailto:admin@connecctionmozambique.com?subject=Inscricao%20no%20Curso%20Redes">
+                        Solicitar informações
+                    </a>
+                </div>
+            </article>
+        </div>
+
+                <!-- CURSO 03: INFORMATICA NA ÓPTICA DO UTILIZADOR -->
+        <div class="col-lg-6">
+            <article class="card cm-course">
+                <img class="cm-course-image"
+                     src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=85"
+                     alt="Formação de informática na óptica do utilizador"
+                     loading="lazy">
+
+                <div class="card-body">
+                    <h2>03. Informática na Óptica do Utilizador</h2>
+                    <p>Formação prática para desenvolver competências digitais e utilizar o computador e ferramentas de produtividade no trabalho e no dia a dia.</p>
+
+                    <h3>Objectivos</h3>
+                    <ul>
+                        <li>Conhecer os componentes e funcionamento do computador.</li>
+                        <li>Utilizar o sistema operativo Windows.</li>
+                        <li>Criar e editar documentos profissionais.</li>
+                        <li>Trabalhar com folhas de cálculo e apresentações.</li>
+                        <li>Utilizar a Internet e o correio electrónico com segurança.</li>
+                    </ul>
+
+                    <h3>Conteúdos programáticos</h3>
+                    <ul>
+                        <li>Introdução à informática e aos computadores.</li>
+                        <li>Hardware, software e periféricos.</li>
+                        <li>Windows: ambiente de trabalho, ficheiros e pastas.</li>
+                        <li>Microsoft Word: criação e formatação de documentos.</li>
+                        <li>Microsoft Excel: tabelas, fórmulas e gráficos básicos.</li>
+                        <li>Microsoft PowerPoint: criação de apresentações.</li>
+                        <li>Internet, pesquisa e correio electrónico.</li>
+                        <li>Segurança digital e boas práticas.</li>
+                    </ul>
+
+                    <h3>Competências adquiridas</h3>
+                    <p>Utilização autónoma do computador e das principais ferramentas digitais de produtividade.</p>
+
+                    <a class="btn cm-btn mt-2"
+                       href="mailto:admin@connecctionmozambique.com?subject=Inscricao%20no%20Curso%20de%20Informatica">
+                        Solicitar informações
+                    </a>
+                </div>
+            </article>
+        </div>
+
+        <!-- CURSO 04: PILOTAGEM DE DRONES -->
+        <div class="col-lg-6">
+            <article class="card cm-course">
+                <img class="cm-course-image"
+                     src="https://images.unsplash.com/photo-1473968512647-3e447244af8f?auto=format&fit=crop&w=1200&q=85"
+                     alt="Drone utilizado em formação de pilotagem"
+                     loading="lazy">
+
+                <div class="card-body">
+                    <h2>04. Pilotagem de Drones</h2>
+                    <p>Formação introdutória em fundamentos e competências operacionais para utilização de aeronaves não tripuladas.</p>
+
+                    <h3>Objectivos</h3>
+                    <ul>
+                        <li>Conhecer os componentes e funcionamento dos drones.</li>
+                        <li>Compreender os princípios básicos de voo.</li>
+                        <li>Aprender procedimentos de preparação e operação.</li>
+                        <li>Executar exercícios práticos de pilotagem supervisionada.</li>
+                        <li>Aplicar regras de segurança e utilização responsável.</li>
+                    </ul>
+
+                    <h3>Conteúdos programáticos</h3>
+                    <ul>
+                        <li>Introdução às aeronaves não tripuladas.</li>
+                        <li>Tipos de drones e principais componentes.</li>
+                        <li>Baterias, controladores e sistemas de navegação.</li>
+                        <li>Preparação e verificação antes do voo.</li>
+                        <li>Fundamentos de pilotagem e controlo.</li>
+                        <li>Exercícios práticos de descolagem, voo e aterragem.</li>
+                        <li>Segurança operacional e gestão de riscos.</li>
+                        <li>Normas e requisitos aplicáveis à operação de drones.</li>
+                    </ul>
+
+                    <h3>Competências adquiridas</h3>
+                    <p>Conhecimentos fundamentais para preparar, operar e utilizar drones de forma segura e responsável.</p>
+
+                    <a class="btn cm-btn mt-2"
+                       href="mailto:admin@connecctionmozambique.com?subject=Inscricao%20no%20Curso%20de%20Pilotagem%20de%20Drones">
+                        Solicitar informações
+                    </a>
+                </div>
+            </article>
+        </div>
+
+        <!-- CURSO 05: INTELIGENCIA ARTIFICIAL -->
+        <div class="col-lg-6">
+            <article class="card cm-course">
+                <img class="cm-course-image"
+                     src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1200&q=85"
+                     alt="Inteligência artificial e ferramentas digitais"
+                     loading="lazy">
+
+                <div class="card-body">
+                    <h2>05. Inteligência Artificial</h2>
+                    <p>Formação prática sobre aplicações de ferramentas de inteligência artificial na produtividade e em tarefas profissionais.</p>
+
+                    <h3>Objectivos</h3>
+                    <ul>
+                        <li>Compreender os conceitos fundamentais da inteligência artificial.</li>
+                        <li>Conhecer ferramentas de IA para diferentes actividades.</li>
+                        <li>Utilizar IA para apoiar tarefas profissionais.</li>
+                        <li>Melhorar a produtividade e organização do trabalho.</li>
+                        <li>Identificar limitações e utilizar a IA de forma responsável.</li>
+                    </ul>
+
+                    <h3>Conteúdos programáticos</h3>
+                    <ul>
+                        <li>Introdução à inteligência artificial.</li>
+                        <li>Tipos e aplicações de ferramentas de IA.</li>
+                        <li>Utilização de assistentes de IA.</li>
+                        <li>Formulação de instruções e prompts.</li>
+                        <li>Produção e revisão de textos e documentos.</li>
+                        <li>Apoio à pesquisa, análise e organização de informação.</li>
+                        <li>IA aplicada à produtividade e actividades profissionais.</li>
+                        <li>Privacidade, segurança, ética e verificação de resultados.</li>
+                    </ul>
+
+                    <h3>Competências adquiridas</h3>
+                    <p>Capacidade de utilizar ferramentas de inteligência artificial como apoio à produtividade e ao trabalho profissional.</p>
+
+                    <a class="btn cm-btn mt-2"
+                       href="mailto:admin@connecctionmozambique.com?subject=Inscricao%20no%20Curso%20de%20Inteligencia%20Artificial">
+                        Solicitar informações
+                    </a>
+                </div>
+            </article>
+        </div>
+<!-- CURSO 3: CONSULTORIA -->
+        <div class="col-lg-6">
+            <article class="card cm-course">
+                <img class="cm-course-image"
+                     src="https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=1200&q=85"
+                     alt="Consultoria e planeamento de soluções tecnológicas"
+                     loading="lazy">
+
+                <div class="card-body">
+                    <h2>06. Consultoria – CFTV e Redes</h2>
+                    <p>Formação orientada para análise, planeamento e aconselhamento técnico em segurança electrónica e redes.</p>
+
+                    <h3>Objectivos</h3>
+                    <ul>
+                        <li>Identificar necessidades tecnológicas dos clientes.</li>
+                        <li>Avaliar infraestruturas de CFTV e redes.</li>
+                        <li>Dimensionar soluções adequadas.</li>
+                        <li>Elaborar propostas e recomendações técnicas.</li>
+                    </ul>
+
+                    <h3>Conteúdos programáticos</h3>
+                    <ul>
+                        <li>Levantamento de necessidades e requisitos.</li>
+                        <li>Análise de espaços e pontos de instalação.</li>
+                        <li>Planeamento de câmaras e cobertura.</li>
+                        <li>Dimensionamento de redes e cabeamento.</li>
+                        <li>Segurança, riscos e boas práticas.</li>
+                        <li>Relatórios, propostas e documentação técnica.</li>
+                        <li>Manutenção e acompanhamento de projectos.</li>
+                    </ul>
+
+                    <h3>Competências adquiridas</h3>
+                    <p>Capacidade de analisar necessidades e propor soluções de CFTV e redes.</p>
+
+                    <a class="btn cm-btn mt-2"
+                       href="mailto:admin@connecctionmozambique.com?subject=Inscricao%20no%20Curso%20Consultoria">
+                        Solicitar informações
+                    </a>
+                </div>
+            </article>
+        </div>
+
+        <!-- CURSO 4: CLOUD E BACKUP -->
+        <div class="col-lg-6">
+            <article class="card cm-course">
+                <img class="cm-course-image"
+                     src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=85"
+                     alt="Computação em nuvem e armazenamento de dados"
+                     loading="lazy">
+
+                <div class="card-body">
+                    <h2>07. Cloud e Backup</h2>
+                    <p>Formação em armazenamento na nuvem, cópias de segurança e recuperação de dados.</p>
+
+                    <h3>Objectivos</h3>
+                    <ul>
+                        <li>Compreender os fundamentos da computação em nuvem.</li>
+                        <li>Conhecer soluções de armazenamento cloud.</li>
+                        <li>Configurar e executar cópias de segurança.</li>
+                        <li>Aplicar procedimentos de recuperação de dados.</li>
+                    </ul>
+
+                    <h3>Conteúdos programáticos</h3>
+                    <ul>
+                        <li>Introdução à computação em nuvem.</li>
+                        <li>Modelos de serviços e armazenamento cloud.</li>
+                        <li>Organização e sincronização de ficheiros.</li>
+                        <li>Tipos de backup: completo, incremental e diferencial.</li>
+                        <li>Políticas de retenção e recuperação de dados.</li>
+                        <li>Controlo de acesso e segurança da informação.</li>
+                        <li>Testes de recuperação e continuidade operacional.</li>
+                    </ul>
+
+                    <h3>Competências adquiridas</h3>
+                    <p>Gestão de armazenamento cloud, cópias de segurança e recuperação de dados.</p>
+
+                    <a class="btn cm-btn mt-2"
+                       href="mailto:admin@connecctionmozambique.com?subject=Inscricao%20no%20Curso%20Cloud%20e%20Backup">
+                        Solicitar informações
+                    </a>
+                </div>
+            </article>
+        </div>
+
+    </div>
+</main>
+
+<section class="py-5 text-center" style="background:#E5E7EB;">
+    <div class="container">
+        <h2 class="fw-bold">Pretende frequentar uma formação?</h2>
+        <p>Entre em contacto com a CONNECTION MOZAMBIQUE, LDA para solicitar informações.</p>
+        <a href="contacto.html" class="btn cm-btn btn-lg">Contactar a empresa</a>
+    </div>
+</section>
+
+<footer class="cm-footer">
+    <div class="container text-center">
+        <hr class="border-secondary my-4">
+      <p class="small text-sn-muted mb-0 text-center">&copy; 2026 CONNECTION MOZAMBIQUE, LDA. Todos os direitos reservados. | www.connectionmozambique.co.mz</p>
+    </div>
+</footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/tracker.js"></script>
+  <script src="js/content-loader.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
+

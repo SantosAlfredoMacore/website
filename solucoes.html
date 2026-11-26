@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="pt-MZ">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#102A43">
+  <title>Soluções | CONNECTION MOZAMBIQUE, LDA</title>
+  <meta name="description" content="Infraestrutura, segurança e continuidade de negócio em Moçambique.">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="icon" href="./public/logo-dark.svg" type="image/svg+xml">
+  <style>
+    .sn-service-detail { scroll-margin-top: 100px; }
+    .sn-detail-img { width:100%; max-height:300px; object-fit:cover; border-radius:14px; border:4px solid #dce3ea; box-shadow:0 12px 32px rgba(16,42,67,.12); }
+    .sn-badge { display:inline-block; background:#102A43; color:#fff; font-size:.75rem; font-weight:700; padding:.35rem .75rem; border-radius:6px; margin-bottom:1rem; }
+  </style>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+<body>
+  <header class="sn-header sticky-top">
+  <nav class="navbar navbar-expand-lg" aria-label="Navegação principal">
+    <div class="container">
+      <a class="navbar-brand" href="index.html" aria-label="CONNECTION MOZAMBIQUE - página inicial">
+        <img src="./public/logo.png" alt="CONNECTION MOZAMBIQUE" height="48">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Abrir menu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="offcanvas offcanvas-end" tabindex="-1" id="navMenu" aria-labelledby="navMenuLabel">
+        <div class="offcanvas-header">
+          <img src="./public/logo-white.svg" alt="CONNECTION MOZAMBIQUE" height="42" id="navMenuLabel">
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Fechar menu"></button>
+        </div>
+        <div class="offcanvas-body">
+          <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Início</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="servicos.html" id="ddServicos" role="button" data-bs-toggle="dropdown" aria-expanded="false">Serviços</a>
+              <ul class="dropdown-menu" aria-labelledby="ddServicos">
+                <li><h6 class="dropdown-header">Os nossos serviços</h6></li>
+                <li><a class="dropdown-item" href="servicos.html#redes"><i class="bi bi-hdd-network"></i> Redes &amp; Cabos</a></li>
+                <li><a class="dropdown-item" href="servicos.html#consultoria"><i class="bi bi-mortarboard"></i> Consultoria (Treinamento)</a></li>
+                <li><a class="dropdown-item" href="servicos.html#helpdesk"><i class="bi bi-headset"></i> Helpdesk</a></li>
+                <li><a class="dropdown-item" href="servicos.html#cftv"><i class="bi bi-camera-video"></i> CFTV</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item fw-semibold" href="servicos.html"><i class="bi bi-grid"></i> Ver todos os serviços</a></li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle active" href="solucoes.html" id="ddSolucoes" role="button" data-bs-toggle="dropdown" aria-expanded="false">Soluções</a>
+              <ul class="dropdown-menu" aria-labelledby="ddSolucoes">
+                <li><h6 class="dropdown-header">Soluções tecnológicas</h6></li>
+                <li><a class="dropdown-item" href="solucoes.html#infraestrutura"><i class="bi bi-diagram-3"></i> Infraestrutura e redes</a></li>
+                <li><a class="dropdown-item" href="solucoes.html#seguranca"><i class="bi bi-shield-lock"></i> Segurança digital</a></li>
+                <li><a class="dropdown-item" href="solucoes.html#continuidade"><i class="bi bi-cloud-check"></i> Backup e continuidade</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item fw-semibold" href="solucoes.html"><i class="bi bi-grid"></i> Ver todas as soluções</a></li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="sobre.html" id="ddEmpresa" role="button" data-bs-toggle="dropdown" aria-expanded="false">Empresa</a>
+              <ul class="dropdown-menu" aria-labelledby="ddEmpresa">
+                <li><h6 class="dropdown-header">Sobre a empresa</h6></li>
+                <li><a class="dropdown-item" href="sobre.html"><i class="bi bi-building"></i> Sobre nós</a></li>
+                <li><a class="dropdown-item" href="recursos.html"><i class="bi bi-journal-richtext"></i> Recursos e apoio</a></li>
+                <li><a class="dropdown-item" href="formacao.html"><i class="bi bi-people"></i> Formação</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="contacto.html"><i class="bi bi-envelope"></i> Contactos</a></li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contacto.html">Contacto</a>
+            </li>
+            <li class="nav-item ms-lg-1">
+              <a class="btn btn-sn-primary" href="orcamento.html">Pedir orçamento</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+
+  <main>
+    <section class="sn-hero" style="min-height:auto;padding:3.5rem 0 2.5rem;">
+      <div class="container"><h1 class="sn-hero-title" style="font-size:clamp(1.8rem,4vw,2.5rem);">Soluções</h1>
+      <p class="sn-hero-subtitle mb-0">Infraestrutura · Segurança · Continuidade do negócio</p></div>
+    </section>
+
+    <section class="bg-sn-light py-3 border-bottom">
+      <div class="container d-flex flex-wrap gap-2 justify-content-center">
+        <a href="#infraestrutura" class="btn btn-sn-secondary btn-sm">Infraestrutura e redes</a>
+        <a href="#seguranca" class="btn btn-sn-secondary btn-sm">Segurança digital</a>
+        <a href="#continuidade" class="btn btn-sn-secondary btn-sm">Backup e continuidade</a>
+      </div>
+    </section>
+
+    <section id="infraestrutura" class="sn-section sn-service-detail">
+      <div class="container">
+        <div class="row align-items-center g-4 g-lg-5">
+          <div class="col-lg-6"><img src="./public/InfraestruturaRedeCabeamentoEstruturado.jpg" alt="Infraestrutura" class="sn-detail-img" onerror="this.src='./public/logo.png'"></div>
+          <div class="col-lg-6">
+            <span class="sn-badge">INFRAESTRUTURA E REDES</span>
+            <h2 class="sn-section-title mb-3">Infraestrutura e Redes</h2>
+            <p class="text-muted">Projetamos e implementamos infraestruturas de rede robustas, escaláveis e preparadas para o crescimento do seu negócio.</p>
+            <ul class="list-unstyled mt-3">
+              <li class="mb-2">✓ Cabeamento estruturado e fibra óptica</li>
+              <li class="mb-2">✓ Redes LAN / WAN e Wi-Fi empresarial</li>
+              <li class="mb-2">✓ Switch, routers e segmentação</li>
+              <li class="mb-2">✓ Documentação e etiquetagem profissional</li>
+            </ul>
+            <a href="orcamento.html" class="btn btn-sn-primary mt-3">Pedir orçamento</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="seguranca" class="sn-section bg-sn-light sn-service-detail">
+      <div class="container">
+        <div class="row align-items-center g-4 g-lg-5 flex-lg-row-reverse">
+          <div class="col-lg-6"><img src="./public/ciberseguranca.jpg" alt="Segurança" class="sn-detail-img" onerror="this.src='./public/logo.png'"></div>
+          <div class="col-lg-6">
+            <span class="sn-badge">SEGURANÇA DIGITAL</span>
+            <h2 class="sn-section-title mb-3">Segurança Digital</h2>
+            <p class="text-muted">Proteção multicamadas dos seus activos digitais, com monitorização, resposta a incidentes e boas práticas de cibersegurança.</p>
+            <ul class="list-unstyled mt-3">
+              <li class="mb-2">✓ Avaliação de riscos e vulnerabilidades</li>
+              <li class="mb-2">✓ Firewall, antivírus e controlo de acesso</li>
+              <li class="mb-2">✓ Políticas de segurança e formação</li>
+              <li class="mb-2">✓ Resposta a incidentes</li>
+            </ul>
+            <a href="orcamento.html" class="btn btn-sn-primary mt-3">Pedir orçamento</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="continuidade" class="sn-section sn-service-detail">
+      <div class="container">
+        <div class="row align-items-center g-4 g-lg-5">
+          <div class="col-lg-6"><img src="./public/cloud-backup.jpg" alt="Continuidade" class="sn-detail-img" onerror="this.src='./public/logo.png'"></div>
+          <div class="col-lg-6">
+            <span class="sn-badge">BACKUP E CONTINUIDADE</span>
+            <h2 class="sn-section-title mb-3">Backup e Continuidade do Negócio</h2>
+            <p class="text-muted">Garantimos que os seus dados e sistemas estão protegidos e recuperáveis, minimizando o impacto de falhas ou desastres.</p>
+            <ul class="list-unstyled mt-3">
+              <li class="mb-2">✓ Backup local e na cloud</li>
+              <li class="mb-2">✓ Planos de recuperação de desastres (DR)</li>
+              <li class="mb-2">✓ Testes de restauro periódicos</li>
+              <li class="mb-2">✓ Continuidade operacional</li>
+            </ul>
+            <a href="orcamento.html" class="btn btn-sn-primary mt-3">Pedir orçamento</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sn-section bg-sn-light">
+      <div class="container text-center">
+        <h2 class="sn-section-title">Precisa de uma solução à medida?</h2>
+        <p class="text-muted mb-4">Fale connosco e receba um orçamento personalizado.</p>
+        <a href="orcamento.html" class="btn btn-sn-primary btn-lg">Pedir Orçamento Gratuito</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="sn-footer">
+    <div class="container py-5">
+      <div class="row g-4">
+        <div class="col-md-4">
+          <img src="./public/logo-white.svg" alt="CONNECTION MOZAMBIQUE" height="36" class="mb-3">
+          <p class="text-sn-muted small">Redes &amp; Cabos, Consultoria (Treinamento), Helpdesk e CFTV em Moçambique.</p>
+          <p class="text-sn-muted small mb-0">CONNECTION MOZAMBIQUE, LDA</p>
+        </div>
+        <div class="col-md-2"><h6 class="text-white">Serviços</h6>
+          <ul class="list-unstyled small">
+            <li><a href="servicos.html#redes">Redes &amp; Cabos</a></li>
+            <li><a href="servicos.html#consultoria">Consultoria (Treinamento)</a></li>
+            <li><a href="servicos.html#helpdesk">Helpdesk</a></li>
+            <li><a href="servicos.html#cftv">CFTV</a></li>
+          </ul>
+        </div>
+        <div class="col-md-3"><h6 class="text-white">Contacto</h6>
+          <ul class="list-unstyled small text-sn-muted">
+            <li><a href="contacto.html">Consultar localização</a></li>
+            <li><a href="contacto.html">Telefones e e-mail</a></li>
+          </ul>
+        </div>
+        <div class="col-md-3"><h6 class="text-white">Legal</h6>
+          <ul class="list-unstyled small">
+            <li><a href="privacidade.html">Privacidade</a></li>
+          </ul>
+        </div>
+      </div>
+      <hr class="border-secondary my-4">
+      <p class="small text-sn-muted mb-0 text-center">&copy; 2026 CONNECTION MOZAMBIQUE, LDA. Todos os direitos reservados. | www.connectionmozambique.co.mz</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/tracker.js"></script>
+  <script src="js/content-loader.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
