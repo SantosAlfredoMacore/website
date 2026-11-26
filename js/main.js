@@ -175,24 +175,87 @@
       }
     });
 
-    form.addEventListener('submit', function (e) {
+    form.addEventListener('submit', async function (e) {
       e.preventDefault();
+
       if (!validateStep(current)) return;
+
       var consent = form.querySelector('[name="consentimento"]');
+
       if (consent && !consent.checked) {
         consent.classList.add('is-invalid');
         if (consent.reportValidity) consent.reportValidity();
         return;
       }
+
       var notice = form.querySelector('.cm-form-notice');
+
       if (!notice) {
         notice = document.createElement('div');
-        notice.className = 'alert alert-success mt-3 cm-form-notice';
+        notice.className = 'alert mt-3 cm-form-notice';
         form.insertBefore(notice, form.firstChild);
       }
-      notice.textContent = 'Pedido registado com sucesso. A equipa irá analisar e responder em breve.';
-    });
 
+      var submitButton = form.querySelector('button[type="submit"]');
+
+      if (submitButton) {
+        submitButton.disabled = true;
+        submitButton.textContent = 'A enviar pedido...';
+      }
+
+      notice.className = 'alert alert-info mt-3 cm-form-notice';
+      notice.textContent = 'Estamos a enviar o seu pedido. Aguarde, por favor.';
+
+      try {
+        var dados = {};
+
+        new FormData(form).forEach(function (value, key) {
+          dados[key] = value;
+        });
+
+        dados._subject = 'Novo pedido de orçamento - CONNECTION MOZAMBIQUE';
+        dados._template = 'table';
+        dados._replyto = dados.email || '';
+        dados._url = window.location.href;
+
+        var resposta = await fetch(
+          'https://formsubmit.co/ajax/admin@connectionmozambique.com',
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            },
+            body: JSON.stringify(dados)
+          }
+        );
+
+        var resultado = await resposta.json();
+
+        if (!resposta.ok || String(resultado.success).toLowerCase() !== 'true') {
+          throw new Error(resultado.message || 'O serviço não confirmou o envio.');
+        }
+
+        notice.className = 'alert alert-success mt-3 cm-form-notice';
+        notice.textContent = 'Pedido enviado com sucesso! A equipa da CONNECTION MOZAMBIQUE irá analisar os dados e entrar em contacto consigo.';
+
+        if (submitButton) {
+          submitButton.textContent = 'Pedido enviado';
+        }
+
+      } catch (erro) {
+        console.error('Erro no envio do orçamento:', erro);
+
+        notice.className = 'alert alert-danger mt-3 cm-form-notice';
+        notice.textContent = 'Não foi possível confirmar o envio do pedido. ' +
+          (erro.message || 'Verifique a sua ligação à Internet e tente novamente.');
+
+        if (submitButton) {
+          submitButton.disabled = false;
+          submitButton.textContent = 'Tentar novamente';
+        }
+      }
+    });
     showStep(1, false);
   }
 
@@ -200,18 +263,81 @@
     document.querySelectorAll('form').forEach(function (form) {
       if (form.id === 'multiStepForm') return;
       if (!form.querySelector('input[type="email"]') || !form.querySelector('textarea')) return;
-      form.addEventListener('submit', function (e) {
+
+      form.addEventListener('submit', async function (e) {
         e.preventDefault();
+
         if (form.reportValidity && !form.reportValidity()) return;
+
+        var botao = form.querySelector('button[type="submit"]');
         var msg = form.querySelector('[data-form-message]');
+
         if (!msg) {
           msg = document.createElement('div');
           msg.setAttribute('data-form-message', 'true');
-          msg.className = 'alert alert-success mt-3';
+          msg.className = 'alert mt-3';
           form.appendChild(msg);
         }
-        msg.className = 'alert alert-success mt-3';
-        msg.textContent = 'Mensagem registada com sucesso. Entraremos em contacto em breve.';
+
+        if (botao) {
+          botao.disabled = true;
+          botao.textContent = 'A enviar mensagem...';
+        }
+
+        msg.className = 'alert alert-info mt-3';
+        msg.textContent = 'A enviar a sua mensagem. Aguarde, por favor.';
+
+        try {
+          var dados = {};
+
+          new FormData(form).forEach(function (valor, chave) {
+            dados[chave] = valor;
+          });
+
+          dados._subject = 'Nova mensagem - CONNECTION MOZAMBIQUE';
+          dados._template = 'table';
+          dados._replyto = dados.email || '';
+          dados._url = window.location.href;
+
+          var resposta = await fetch(
+            'https://formsubmit.co/ajax/admin@connectionmozambique.com',
+            {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+              },
+              body: JSON.stringify(dados)
+            }
+          );
+
+          var resultado = await resposta.json();
+
+          if (!resposta.ok || String(resultado.success).toLowerCase() !== 'true') {
+            throw new Error(resultado.message || 'O serviço não confirmou o envio.');
+          }
+
+          msg.className = 'alert alert-success mt-3';
+          msg.textContent = 'Mensagem enviada com sucesso! A equipa da CONNECTION MOZAMBIQUE entrará em contacto consigo.';
+
+          form.reset();
+
+          if (botao) {
+            botao.textContent = 'Mensagem enviada';
+          }
+
+        } catch (erro) {
+          console.error('Erro no envio da mensagem:', erro);
+
+          msg.className = 'alert alert-danger mt-3';
+          msg.textContent = 'Não foi possível enviar a mensagem. ' +
+            (erro.message || 'Verifique a ligação e tente novamente.');
+
+          if (botao) {
+            botao.disabled = false;
+            botao.textContent = 'Tentar novamente';
+          }
+        }
       });
     });
   }
@@ -265,4 +391,8 @@
     try { initCounters(); } catch (e) { console.warn('counters', e); }
   });
 })();
+
+
+
+
 

@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="pt-MZ">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#102a43">
+  <title>Gestão de Serviços | Admin CM</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="../css/main.css">
+
+  <style>
+    :root {
+      --cm-navy: #102a43;
+      --cm-navy-2: #183b56;
+      --cm-blue: #1769aa;
+      --cm-bg: #f3f6fa;
+      --cm-border: #e5eaf0;
+      --cm-muted: #68788a;
+      --cm-shadow: 0 5px 22px rgba(16, 42, 67, .07);
+    }
+
+    * { box-sizing: border-box; }
+    body { min-height: 100vh; background: var(--cm-bg); color: #243447; }
+    button, input, textarea { font: inherit; }
+
+    .admin-shell { min-height: 100vh; }
+    .admin-sidebar {
+      width: 260px; flex: 0 0 260px; min-height: 100vh;
+      position: fixed; inset: 0 auto 0 0; z-index: 1030;
+      overflow-y: auto; background: var(--cm-navy); color: #fff;
+      padding: 1.15rem 0;
+    }
+    .brand { display:flex; align-items:center; gap:.7rem; padding:0 1.25rem 1.2rem; }
+    .brand img { width:auto; max-width:42px; max-height:38px; object-fit:contain; }
+    .brand-name { font-weight:700; letter-spacing:.2px; }
+    .brand-caption { display:block; color:rgba(255,255,255,.55); font-size:.7rem; }
+    .sidebar-label {
+      padding: .9rem 1.25rem .35rem; color:rgba(255,255,255,.42);
+      font-size:.68rem; font-weight:700; letter-spacing:1.1px; text-transform:uppercase;
+    }
+    .admin-nav .nav-link, .nav-group-toggle {
+      width:calc(100% - 24px); margin:2px 12px; padding:.68rem .9rem;
+      display:flex; align-items:center; gap:.75rem; border:0; border-radius:9px;
+      color:rgba(255,255,255,.78); text-decoration:none; font-size:.9rem;
+      background:transparent; text-align:left; transition:.18s ease;
+    }
+    .admin-nav .nav-link i, .nav-group-toggle > span > i { width:20px; font-size:1rem; }
+    .admin-nav .nav-link:hover, .nav-group-toggle:hover {
+      background:rgba(255,255,255,.09); color:#fff;
+    }
+    .admin-nav .nav-link.active {
+      background:rgba(255,255,255,.15); color:#fff; font-weight:600;
+      box-shadow:inset 3px 0 #65b5ff;
+    }
+    .nav-group-toggle { justify-content:space-between; cursor:pointer; }
+    .nav-group-toggle > span { display:flex; align-items:center; gap:.75rem; }
+    .nav-group-toggle .chev { font-size:.75rem; transition:transform .2s; }
+    .nav-group-toggle[aria-expanded="false"] .chev { transform:rotate(-90deg); }
+    .nav-group-items { padding-left:.35rem; }
+    .nav-group-items.collapsed { display:none; }
+    .nav-group-items .nav-link { padding-left:1.35rem; font-size:.86rem; }
+    .sidebar-footer { margin:1.25rem 1.25rem 0; padding-top:1rem; border-top:1px solid rgba(255,255,255,.13); }
+    .sidebar-footer .nav-link { width:100%; margin:2px 0; }
+
+    .admin-main { margin-left:260px; padding:1.5rem clamp(1rem, 2.5vw, 2.25rem) 3rem; min-width:0; }
+    .topbar {
+      display:flex; justify-content:space-between; align-items:center; gap:1rem;
+      flex-wrap:wrap; background:#fff; border:1px solid var(--cm-border);
+      border-radius:14px; padding:1rem 1.25rem; box-shadow:var(--cm-shadow);
+      margin-bottom:1.35rem;
+    }
+    .page-title { font-size:1.2rem; font-weight:700; margin:0; color:#18324b; }
+    .page-subtitle { color:var(--cm-muted); font-size:.84rem; margin-top:.25rem; }
+    .top-actions { display:flex; flex-wrap:wrap; gap:.5rem; }
+    .btn { border-radius:8px; }
+    .btn-sm { padding:.42rem .7rem; font-size:.8rem; }
+    .btn-primary { background:var(--cm-blue); border-color:var(--cm-blue); }
+
+    .intro-panel {
+      background:linear-gradient(115deg, #fff, #f7fbff);
+      border:1px solid var(--cm-border); border-radius:13px; padding:1rem 1.2rem;
+      margin-bottom:1rem; display:flex; align-items:center; justify-content:space-between;
+      gap:1rem; flex-wrap:wrap;
+    }
+    .intro-panel p { margin:0; color:var(--cm-muted); font-size:.86rem; }
+    .stats { display:flex; gap:.65rem; flex-wrap:wrap; }
+    .stat-chip { background:#fff; border:1px solid var(--cm-border); border-radius:9px; padding:.45rem .75rem; font-size:.78rem; color:#536579; }
+    .stat-chip strong { color:#183b56; font-size:.95rem; margin-right:.25rem; }
+
+    .toolbar {
+      display:flex; justify-content:space-between; align-items:center; gap:.75rem;
+      flex-wrap:wrap; margin:1rem 0;
+    }
+    .search-wrap { position:relative; width:min(100%, 360px); }
+    .search-wrap i { position:absolute; left:.8rem; top:50%; transform:translateY(-50%); color:#8291a2; }
+    .search-wrap input { padding-left:2.35rem; border-radius:9px; }
+    .service-card {
+      background:#fff; border:1px solid var(--cm-border); border-radius:13px;
+      box-shadow:var(--cm-shadow); margin-bottom:1rem; overflow:hidden;
+    }
+    .service-card-head {
+      display:flex; align-items:center; justify-content:space-between; gap:1rem;
+      padding:.9rem 1.1rem; background:#fbfcfe; border-bottom:1px solid var(--cm-border);
+    }
+    .service-heading { display:flex; align-items:center; gap:.7rem; min-width:0; }
+    .service-number {
+      width:34px; height:34px; display:grid; place-items:center; flex:0 0 34px;
+      background:#eaf3fb; color:#1769aa; border-radius:9px; font-weight:700; font-size:.82rem;
+    }
+    .service-heading h2 { font-size:.98rem; margin:0; font-weight:700; color:#20384f; }
+    .service-id { color:#7b8998; font-size:.72rem; white-space:nowrap; }
+    .service-card-body { padding:1.15rem; }
+    .form-label { color:#43566b; font-size:.8rem; font-weight:600; margin-bottom:.38rem; }
+    .form-control { border-color:#dce3eb; border-radius:8px; font-size:.86rem; }
+    .form-control:focus { border-color:#80b9e8; box-shadow:0 0 0 .2rem rgba(23,105,170,.1); }
+    textarea.form-control { resize:vertical; min-height:76px; }
+    .field-hint { color:#8996a5; font-size:.72rem; margin-top:.3rem; }
+    .image-panel { background:#f8fafc; border:1px dashed #d4dde7; border-radius:11px; padding:.8rem; height:100%; }
+    .preview-img { width:100%; height:165px; display:block; object-fit:cover; border-radius:8px; background:#e9eef4; border:1px solid #e0e6ed; }
+    .image-actions { display:flex; gap:.45rem; flex-wrap:wrap; margin-top:.65rem; }
+    .image-path { margin-top:.65rem; font-size:.76rem; }
+    .items-label { display:flex; align-items:center; justify-content:space-between; gap:.5rem; }
+    .items-count { color:#8391a0; font-size:.72rem; font-weight:400; }
+    .empty-state { background:#fff; border:1px dashed #cbd5df; border-radius:12px; padding:2.5rem 1rem; text-align:center; color:var(--cm-muted); }
+    .empty-state i { font-size:2rem; color:#9aabba; }
+    .alert { border-radius:10px; font-size:.88rem; }
+    .modal-content { border:0; border-radius:14px; overflow:hidden; }
+    .modal-header { background:#f8fafc; border-bottom:1px solid var(--cm-border); }
+    .img-option { height:100%; padding:5px; border:2px solid transparent; border-radius:9px; cursor:pointer; transition:.15s; }
+    .img-option:hover, .img-option.selected { border-color:var(--cm-blue); background:#eef6fd; }
+    .img-option img { width:100%; height:82px; object-fit:cover; border-radius:6px; display:block; }
+    .img-option-name { display:block; font-size:.68rem; color:#5c6d7e; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; padding:4px 1px 0; }
+    .mobile-brand { display:none; }
+
+    @media (max-width: 991.98px) {
+      .admin-sidebar { position:relative; width:100%; min-height:auto; padding:.75rem 0; }
+      .brand { padding-bottom:.65rem; }
+      .sidebar-label, .sidebar-footer { display:none; }
+      .admin-nav { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); }
+      .admin-nav .nav-link, .nav-group-toggle { width:auto; margin:2px 8px; }
+      .nav-group { min-width:0; }
+      .nav-group-items { padding-left:0; }
+      .admin-main { margin-left:0; padding:1rem; }
+    }
+    @media (max-width: 575.98px) {
+      .admin-nav { grid-template-columns:1fr; }
+      .topbar { align-items:flex-start; padding:.9rem; }
+      .top-actions { width:100%; }
+      .top-actions .btn { flex:1; }
+      .service-card-body { padding:.85rem; }
+      .preview-img { height:190px; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="admin-shell">
+    <aside class="admin-sidebar">
+      <div class="brand">
+        <img src="../public/logo.png" alt="Connection Mozambique" onerror="this.hidden=true">
+        <div><div class="brand-name">Admin CM</div><span class="brand-caption">Connection Mozambique</span></div>
+      </div>
+
+      <nav class="admin-nav" aria-label="Navegação principal">
+        <div class="sidebar-label">Principal</div>
+        <a class="nav-link" href="dashboard.html"><i class="bi bi-speedometer2"></i>Dashboard</a>
+
+        <div class="sidebar-label">Gestão do site</div>
+        <div class="nav-group">
+          <button class="nav-group-toggle" type="button" data-group="conteudo" aria-expanded="true">
+            <span><i class="bi bi-collection"></i>Conteúdo</span><i class="bi bi-chevron-down chev"></i>
+          </button>
+          <div class="nav-group-items" data-group-panel="conteudo">
+            <a class="nav-link" href="conteudos.html"><i class="bi bi-folder2-open"></i>Gestão de conteúdos</a>
+            <a class="nav-link active" href="servicos.html" aria-current="page"><i class="bi bi-gear"></i>Serviços</a>
+            <a class="nav-link" href="slider.html"><i class="bi bi-images"></i>Slider / Hero</a>
+            <a class="nav-link" href="imagens.html"><i class="bi bi-image"></i>Imagens</a>
+            <a class="nav-link" href="textos.html"><i class="bi bi-fonts"></i>Textos</a>
+          </div>
+        </div>
+
+        <div class="nav-group">
+          <button class="nav-group-toggle" type="button" data-group="operacao" aria-expanded="true">
+            <span><i class="bi bi-activity"></i>Operação</span><i class="bi bi-chevron-down chev"></i>
+          </button>
+          <div class="nav-group-items" data-group-panel="operacao">
+            <a class="nav-link" href="orcamentos.html"><i class="bi bi-file-earmark-text"></i>Orçamentos</a>
+            <a class="nav-link" href="atividade.html"><i class="bi bi-graph-up"></i>Atividade / Visitas</a>
+            <a class="nav-link" href="utilizadores.html"><i class="bi bi-people"></i>Utilizadores</a>
+          </div>
+        </div>
+      </nav>
+
+      <div class="sidebar-footer">
+        <a class="nav-link" href="../index.html" target="_blank" rel="noopener"><i class="bi bi-box-arrow-up-right"></i>Ver Site</a>
+        <a class="nav-link" href="#" id="btnLogout"><i class="bi bi-box-arrow-left"></i>Sair</a>
+      </div>
+    </aside>
+
+    <main class="admin-main">
+      <header class="topbar">
+        <div>
+          <h1 class="page-title">Gestão de Serviços</h1>
+          <div class="page-subtitle">Edite os conteúdos, imagens e informações apresentados na página de serviços.</div>
+        </div>
+        <div class="top-actions">
+          <button class="btn btn-outline-secondary btn-sm" type="button" id="btnExport"><i class="bi bi-download me-1"></i>Exportar</button>
+          <button class="btn btn-outline-danger btn-sm" type="button" id="btnReset"><i class="bi bi-arrow-counterclockwise me-1"></i>Restaurar</button>
+          <button class="btn btn-primary btn-sm" type="button" id="btnSave"><i class="bi bi-check2-circle me-1"></i>Guardar alterações</button>
+        </div>
+      </header>
+
+      <div id="alertBox" aria-live="polite"></div>
+
+      <section class="intro-panel" aria-label="Resumo dos serviços">
+        <p><i class="bi bi-info-circle me-1"></i> As alterações são guardadas no armazenamento utilizado pelo painel administrativo.</p>
+        <div class="stats">
+          <span class="stat-chip"><strong id="totalServices">0</strong> serviços</span>
+          <span class="stat-chip"><strong id="totalItems">0</strong> itens descritos</span>
+        </div>
+      </section>
+
+      <div class="toolbar">
+        <div>
+          <h2 class="h6 fw-bold mb-1">Serviços disponíveis</h2>
+          <small class="text-muted">Abra cada cartão para actualizar os respectivos campos.</small>
+        </div>
+        <div class="search-wrap">
+          <i class="bi bi-search"></i>
+          <input class="form-control form-control-sm" type="search" id="serviceSearch" placeholder="Pesquisar serviço..." aria-label="Pesquisar serviço">
+        </div>
+      </div>
+
+      <section id="servicosList" aria-live="polite"></section>
+    </main>
+  </div>
+
+  <!-- Janela de selecção de imagem -->
+  <div class="modal fade" id="imgModal" tabindex="-1" aria-labelledby="imgModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div>
+            <h2 class="modal-title fs-5" id="imgModalTitle">Seleccionar imagem</h2>
+            <small class="text-muted">Escolha uma imagem disponível na pasta public.</small>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row g-2" id="imgGrid"></div>
+          <hr class="my-4">
+          <label class="form-label" for="customImgPath">Ou indique um caminho personalizado</label>
+          <div class="input-group">
+            <input class="form-control" type="text" id="customImgPath" placeholder="./public/minha-imagem.jpg">
+            <button class="btn btn-outline-primary" type="button" id="btnUseCustom">Aplicar caminho</button>
+          </div>
+          <div class="form-text">Exemplo: ./public/servicos/rede.jpg</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/admin-common.js"></script>
+  <script>
+    'use strict';
+
+    let content = null;
+    let currentImgTarget = null;
+    let imgModal = null;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      if (typeof requireAuth === 'function' && !requireAuth()) return;
+
+      document.getElementById('btnLogout').addEventListener('click', (event) => {
+        event.preventDefault();
+        if (typeof logout === 'function') logout();
+      });
+
+      document.querySelectorAll('.nav-group-toggle').forEach((button) => {
+        button.addEventListener('click', () => {
+          const isOpen = button.getAttribute('aria-expanded') === 'true';
+          button.setAttribute('aria-expanded', String(!isOpen));
+          const panel = document.querySelector(`[data-group-panel="${button.dataset.group}"]`);
+          if (panel) panel.classList.toggle('collapsed', isOpen);
+        });
+      });
+
+      imgModal = new bootstrap.Modal(document.getElementById('imgModal'));
+      document.getElementById('btnSave').addEventListener('click', save);
+      document.getElementById('btnExport').addEventListener('click', exportServices);
+      document.getElementById('btnReset').addEventListener('click', resetServices);
+      document.getElementById('btnUseCustom').addEventListener('click', useCustomImage);
+      document.getElementById('serviceSearch').addEventListener('input', filterServices);
+
+      initialiseContent();
+    });
+
+    function initialiseContent() {
+      try {
+        if (typeof loadContent !== 'function') {
+          throw new Error('A função loadContent() não foi encontrada em js/admin-common.js.');
+        }
+        content = loadContent() || {};
+        if (!Array.isArray(content.servicos)) content.servicos = [];
+        renderServicos();
+      } catch (error) {
+        showAlert(error.message || 'Não foi possível carregar os serviços.', 'danger');
+        document.getElementById('servicosList').innerHTML =
+          '<div class="empty-state"><i class="bi bi-exclamation-circle"></i><p class="mt-2 mb-0">Não foi possível carregar os dados dos serviços.</p></div>';
+      }
+    }
+
+    function escapeHtml(value) {
+      return String(value ?? '').replace(/[&<>"']/g, (char) => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+      })[char]);
+    }
+
+    function imageSource(path) {
+      const value = String(path || '').trim();
+      if (!value) return '../public/logo.png';
+      if (/^(https?:|data:|blob:)/i.test(value)) return value;
+      if (value.startsWith('../') || value.startsWith('./') || value.startsWith('/')) return value;
+      return '../' + value.replace(/^\/+/, '');
+    }
+
+    function renderServicos() {
+      const list = document.getElementById('servicosList');
+      list.innerHTML = '';
+
+      const services = content.servicos || [];
+      if (!services.length) {
+        list.innerHTML = '<div class="empty-state"><i class="bi bi-inbox"></i><p class="mt-2 mb-0">Ainda não existem serviços registados no conteúdo.</p></div>';
+      }
+
+      services.forEach((service, index) => {
+        const items = Array.isArray(service.itens) ? service.itens : [];
+        const card = document.createElement('article');
+        card.className = 'service-card';
+        card.dataset.search = [service.titulo, service.tituloLongo, service.badge, service.descricaoCurta].join(' ').toLowerCase();
+
+        card.innerHTML = `
+          <div class="service-card-head">
+            <div class="service-heading">
+              <span class="service-number">${String(index + 1).padStart(2, '0')}</span>
+              <div><h2>${escapeHtml(service.titulo || 'Serviço ' + (index + 1))}</h2>
+                <span class="service-id">Identificador: ${escapeHtml(service.id ?? index)}</span></div>
+            </div>
+            <span class="badge text-bg-light border text-secondary">Serviço ${index + 1}</span>
+          </div>
+
+          <div class="service-card-body">
+            <div class="row g-3">
+              <div class="col-lg-4">
+                <div class="image-panel">
+                  <label class="form-label">Imagem de apresentação</label>
+                  <img class="preview-img" id="preview-${index}" src="${escapeHtml(imageSource(service.imagem))}" alt="Pré-visualização do serviço ${index + 1}" onerror="this.onerror=null;this.src='../public/logo.png'">
+                  <div class="image-actions">
+                    <button class="btn btn-outline-primary btn-sm btn-change-img" type="button" data-index="${index}">
+                      <i class="bi bi-images me-1"></i>Escolher imagem
+                    </button>
+                    <button class="btn btn-outline-secondary btn-sm btn-clear-img" type="button" data-index="${index}">
+                      <i class="bi bi-x-circle me-1"></i>Limpar
+                    </button>
+                  </div>
+                  <label class="form-label mt-3" for="img-path-${index}">Caminho da imagem</label>
+                  <input class="form-control form-control-sm img-path-input" id="img-path-${index}" data-index="${index}" value="${escapeHtml(service.imagem || '')}" placeholder="./public/imagem.jpg">
+                  <div class="field-hint">Use um caminho relativo à estrutura do site ou um endereço de imagem válido.</div>
+                </div>
+              </div>
+
+              <div class="col-lg-8">
+                <div class="row g-3">
+                  <div class="col-md-8">
+                    <label class="form-label" for="titulo-${index}">Título curto</label>
+                    <input class="form-control" id="titulo-${index}" data-field="titulo" data-index="${index}" maxlength="120" value="${escapeHtml(service.titulo)}" placeholder="Ex.: Managed IT">
+                  </div>
+                  <div class="col-md-4">
+                    <label class="form-label" for="badge-${index}">Etiqueta / Badge</label>
+                    <input class="form-control" id="badge-${index}" data-field="badge" data-index="${index}" maxlength="60" value="${escapeHtml(service.badge)}" placeholder="Ex.: 24/7">
+                  </div>
+                  <div class="col-12">
+                    <label class="form-label" for="curta-${index}">Descrição curta <span class="text-muted fw-normal">(cartão da página inicial)</span></label>
+                    <textarea class="form-control" id="curta-${index}" rows="2" maxlength="350" data-field="descricaoCurta" data-index="${index}" placeholder="Resumo apresentado no cartão do serviço...">${escapeHtml(service.descricaoCurta)}</textarea>
+                  </div>
+                  <div class="col-12">
+                    <label class="form-label" for="longo-${index}">Título da página de serviços</label>
+                    <input class="form-control" id="longo-${index}" data-field="tituloLongo" data-index="${index}" maxlength="180" value="${escapeHtml(service.tituloLongo)}" placeholder="Título completo do serviço">
+                  </div>
+                  <div class="col-12">
+                    <label class="form-label" for="descricao-${index}">Descrição detalhada</label>
+                    <textarea class="form-control" id="descricao-${index}" rows="3" maxlength="1500" data-field="descricaoLonga" data-index="${index}" placeholder="Explique o serviço, os benefícios e o seu âmbito...">${escapeHtml(service.descricaoLonga)}</textarea>
+                  </div>
+                  <div class="col-12">
+                    <div class="items-label">
+                      <label class="form-label mb-0" for="itens-${index}">Características / Itens incluídos</label>
+                      <span class="items-count">${items.length} item(ns)</span>
+                    </div>
+                    <textarea class="form-control mt-2 items-input" id="itens-${index}" rows="4" data-field="itens" data-index="${index}" placeholder="Um item por linha">${escapeHtml(items.join('\n'))}</textarea>
+                    <div class="field-hint">Escreva cada característica numa linha separada. As linhas vazias serão ignoradas.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>`;
+        list.appendChild(card);
+      });
+
+      list.querySelectorAll('.btn-change-img').forEach((button) => {
+        button.addEventListener('click', () => openImagePicker(Number(button.dataset.index)));
+      });
+      list.querySelectorAll('.btn-clear-img').forEach((button) => {
+        button.addEventListener('click', () => applyImage('', Number(button.dataset.index)));
+      });
+      list.querySelectorAll('.img-path-input').forEach((input) => {
+        input.addEventListener('input', () => {
+          const index = Number(input.dataset.index);
+          content.servicos[index].imagem = input.value.trim();
+          const preview = document.getElementById('preview-' + index);
+          preview.src = imageSource(input.value);
+        });
+      });
+      list.querySelectorAll('.items-input').forEach((input) => {
+        input.addEventListener('input', () => {
+          const count = input.value.split('\n').map(line => line.trim()).filter(Boolean).length;
+          const label = input.closest('.col-12').querySelector('.items-count');
+          if (label) label.textContent = `${count} item(ns)`;
+        });
+      });
+
+      updateStats();
+      filterServices();
+    }
+
+    function updateStats() {
+      const services = content?.servicos || [];
+      const count = services.reduce((total, service) => total + (Array.isArray(service.itens) ? service.itens.length : 0), 0);
+      document.getElementById('totalServices').textContent = services.length;
+      document.getElementById('totalItems').textContent = count;
+    }
+
+    function filterServices() {
+      const term = document.getElementById('serviceSearch').value.trim().toLowerCase();
+      document.querySelectorAll('#servicosList .service-card').forEach((card) => {
+        card.hidden = term !== '' && !card.dataset.search.includes(term);
+      });
+    }
+
+    function openImagePicker(index) {
+      currentImgTarget = index;
+      const grid = document.getElementById('imgGrid');
+      grid.innerHTML = '';
+      const images = Array.isArray(window.AVAILABLE_IMAGES) ? window.AVAILABLE_IMAGES : [];
+
+      if (!images.length) {
+        grid.innerHTML = '<div class="col-12"><div class="alert alert-info mb-0">A lista AVAILABLE_IMAGES não foi definida em admin-common.js. Pode indicar um caminho personalizado abaixo.</div></div>';
+      } else {
+        images.forEach((name) => {
+          const path = './public/' + name;
+          const col = document.createElement('div');
+          col.className = 'col-6 col-md-3';
+          col.innerHTML = `<div class="img-option" role="button" tabindex="0" aria-label="Seleccionar ${escapeHtml(name)}">
+            <img src="../public/${escapeHtml(name)}" alt="${escapeHtml(name)}" onerror="this.parentElement.hidden=true">
+            <span class="img-option-name" title="${escapeHtml(name)}">${escapeHtml(name)}</span>
+          </div>`;
+          const option = col.querySelector('.img-option');
+          option.addEventListener('click', () => {
+            applyImage(path, currentImgTarget);
+            imgModal.hide();
+          });
+          option.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter' || event.key === ' ') {
+              event.preventDefault();
+              applyImage(path, currentImgTarget);
+              imgModal.hide();
+            }
+          });
+          grid.appendChild(col);
+        });
+      }
+
+      document.getElementById('customImgPath').value = content.servicos[index].imagem || '';
+      imgModal.show();
+    }
+
+    function applyImage(path, index = currentImgTarget) {
+      if (index === null || index === undefined || !content?.servicos?.[index]) return;
+      const value = String(path || '').trim();
+      content.servicos[index].imagem = value;
+      const input = document.querySelector(`.img-path-input[data-index="${index}"]`);
+      const preview = document.getElementById('preview-' + index);
+      if (input) input.value = value;
+      if (preview) preview.src = imageSource(value);
+    }
+
+    function useCustomImage() {
+      const path = document.getElementById('customImgPath').value.trim();
+      if (!path) {
+        showAlert('Indique primeiro o caminho da imagem.', 'warning');
+        return;
+      }
+      applyImage(path);
+      imgModal.hide();
+    }
+
+    function collectFromForm() {
+      document.querySelectorAll('#servicosList [data-field]').forEach((element) => {
+        const index = Number(element.dataset.index);
+        const field = element.dataset.field;
+        if (!content.servicos[index]) return;
+
+        if (field === 'itens') {
+          content.servicos[index].itens = element.value.split('\n').map(line => line.trim()).filter(Boolean);
+        } else {
+          content.servicos[index][field] = element.value.trim();
+        }
+      });
+      document.querySelectorAll('.img-path-input').forEach((input) => {
+        const index = Number(input.dataset.index);
+        if (content.servicos[index]) content.servicos[index].imagem = input.value.trim();
+      });
+    }
+
+    function validateContent() {
+      for (let index = 0; index < content.servicos.length; index++) {
+        const service = content.servicos[index];
+        if (!String(service.titulo || '').trim()) {
+          showAlert(`O serviço ${index + 1} precisa de um título curto.`, 'warning');
+          document.getElementById(`titulo-${index}`)?.focus();
+          return false;
+        }
+      }
+      return true;
+    }
+
+    function save() {
+      collectFromForm();
+      if (!validateContent()) return;
+      if (typeof saveContent !== 'function') {
+        showAlert('A função saveContent() não foi encontrada em js/admin-common.js.', 'danger');
+        return;
+      }
+      try {
+        saveContent(content);
+        updateStats();
+        showAlert('Serviços guardados com sucesso.', 'success');
+      } catch (error) {
+        showAlert('Erro ao guardar: ' + error.message, 'danger');
+      }
+    }
+
+    function exportServices() {
+      collectFromForm();
+      const data = JSON.stringify(content, null, 2);
+      const blob = new Blob([data], { type: 'application/json;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'connection-mozambique-conteudo.json';
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(url);
+      showAlert('Cópia JSON do conteúdo preparada para exportação.', 'info');
+    }
+
+    function resetServices() {
+      const confirmed = window.confirm('Pretende restaurar o conteúdo original? As alterações ainda não guardadas serão perdidas.');
+      if (!confirmed) return;
+
+      if (typeof resetToDefault === 'function') {
+        const result = resetToDefault();
+        if (result === false) {
+          showAlert('Não foi possível restaurar os valores originais.', 'danger');
+          return;
+        }
+        initialiseContent();
+        showAlert('Conteúdo restaurado para os valores originais.', 'success');
+        return;
+      }
+
+      showAlert('A função resetToDefault() não está disponível em admin-common.js. Não foi feita qualquer alteração.', 'warning');
+    }
+
+    function showAlert(message, type = 'success') {
+      const box = document.getElementById('alertBox');
+      box.innerHTML = `<div class="alert alert-${type} alert-dismissible fade show" role="alert">
+        ${escapeHtml(message)}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
+      </div>`;
+      box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  </script>
+</body>
+</html>

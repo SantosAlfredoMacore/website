@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="pt-MZ">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Atividade e Visitas | Admin CM</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <style>
+    :root { --admin-sidebar: #102A43; }
+    body { background: #f4f6f9; min-height: 100vh; }
+    .admin-sidebar { background: var(--admin-sidebar); min-height: 100vh; color: #fff; width: 260px; position: fixed; left: 0; top: 0; z-index: 100; overflow-y: auto; }
+    .admin-sidebar .nav-link { color: rgba(255,255,255,.8); border-radius: 8px; margin: 2px 12px; padding: .55rem 1rem; font-size: .92rem; }
+    .admin-sidebar .nav-link:hover, .admin-sidebar .nav-link.active { background: rgba(255,255,255,.12); color: #fff; }
+    .admin-sidebar .nav-link i { width: 22px; }
+    .admin-main { margin-left: 260px; padding: 1.25rem 1.75rem; }
+    .admin-topbar { background: #fff; border-radius: 12px; padding: .7rem 1.2rem; box-shadow: 0 2px 8px rgba(0,0,0,.06); margin-bottom: 1.25rem; }
+    .stat-card { background: #fff; border-radius: 12px; padding: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,.06); }
+    .table-card { background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,.06); overflow: hidden; }
+    .table-card .card-header { background: #f8f9fa; font-weight: 600; padding: .7rem 1rem; }
+    @media (max-width: 991.98px) {
+      .admin-sidebar { width: 100%; min-height: auto; position: relative; }
+      .admin-main { margin-left: 0; }
+    }
+  
+    .admin-nav .nav-group { margin: 4px 0; }
+    .admin-nav .nav-group-toggle {
+      width: calc(100% - 24px); margin: 2px 12px; text-align: left;
+      background: transparent; border: 0; color: rgba(255,255,255,.85);
+      display: flex; align-items: center; justify-content: space-between;
+      border-radius: 8px; padding: .55rem 1rem; font-size: .92rem; cursor: pointer;
+    }
+    .admin-nav .nav-group-toggle:hover { background: rgba(255,255,255,.1); color: #fff; }
+    .admin-nav .nav-group-toggle .chev { transition: transform .2s; font-size: .8rem; opacity: .7; }
+    .admin-nav .nav-group-toggle[aria-expanded="false"] .chev { transform: rotate(-90deg); }
+    .admin-nav .nav-group-items { padding-left: .5rem; }
+    .admin-nav .nav-group-items.collapsed { display: none; }
+    .admin-nav .nav-group-items .nav-link { font-size: .88rem; padding: .45rem 1rem .45rem 1.4rem; }
+
+  </style>
+</head>
+<body>
+  <div class="d-flex flex-column flex-lg-row">
+    <aside class="admin-sidebar py-3">
+
+      <div class="px-3 mb-3 d-flex align-items-center gap-2">
+        <img src="../public/logo.png" alt="Logo" height="34" onerror="this.style.display='none'">
+        <span class="fw-bold">Admin CM</span>
+      </div>
+      <nav class="nav flex-column admin-nav">
+        <a class="nav-link" href="dashboard.html"><i class="bi bi-speedometer2"></i> Dashboard</a>
+
+        <div class="nav-group">
+          <button class="nav-link nav-group-toggle" type="button" data-group="conteudo" aria-expanded="true">
+            <span><i class="bi bi-collection"></i> Conteúdo</span>
+            <i class="bi bi-chevron-down chev"></i>
+          </button>
+          <div class="nav-group-items" data-group-panel="conteudo">
+            <a class="nav-link" href="conteudos.html"><i class="bi bi-folder2-open"></i> Gestão de conteúdos</a>
+            <a class="nav-link" href="servicos.html"><i class="bi bi-gear"></i> Serviços</a>
+            <a class="nav-link" href="slider.html"><i class="bi bi-images"></i> Slider / Hero</a>
+            <a class="nav-link" href="imagens.html"><i class="bi bi-image"></i> Imagens</a>
+            <a class="nav-link" href="textos.html"><i class="bi bi-fonts"></i> Textos</a>
+          </div>
+        </div>
+
+        <div class="nav-group">
+          <button class="nav-link nav-group-toggle" type="button" data-group="operacao" aria-expanded="true">
+            <span><i class="bi bi-activity"></i> Operação</span>
+            <i class="bi bi-chevron-down chev"></i>
+          </button>
+          <div class="nav-group-items" data-group-panel="operacao">
+            <a class="nav-link" href="orcamentos.html"><i class="bi bi-file-earmark-text"></i> Orçamentos</a>
+            <a class="nav-link active" href="atividade.html"><i class="bi bi-graph-up"></i> Atividade / Visitas</a>
+            <a class="nav-link" href="utilizadores.html"><i class="bi bi-people"></i> Utilizadores</a>
+          </div>
+        </div>
+
+        <hr class="border-secondary mx-3 my-2">
+        <a class="nav-link" href="../index.html" target="_blank"><i class="bi bi-box-arrow-up-right"></i> Ver Site</a>
+        <a class="nav-link" href="#" id="btnLogout"><i class="bi bi-box-arrow-left"></i> Sair</a>
+      </nav>
+
+    </aside>
+
+    <main class="admin-main flex-grow-1">
+      <div class="admin-topbar d-flex justify-content-between align-items-center flex-wrap gap-2">
+        <div>
+          <h1 class="h5 mb-0">Atividade e Visitas</h1>
+          <small class="text-muted">Todas as ações realizadas pelos utilizadores no website</small>
+        </div>
+        <div class="d-flex gap-2">
+          <button class="btn btn-outline-danger btn-sm" id="btnClear"><i class="bi bi-trash"></i> Limpar registos</button>
+          <button class="btn btn-outline-secondary btn-sm" id="btnRefresh"><i class="bi bi-arrow-clockwise"></i> Atualizar</button>
+        </div>
+      </div>
+
+      <div class="row g-3 mb-3">
+        <div class="col-6 col-md-3"><div class="stat-card"><div class="text-muted small">Visitas totais</div><div class="fs-4 fw-bold" id="stV">0</div></div></div>
+        <div class="col-6 col-md-3"><div class="stat-card"><div class="text-muted small">Visitas hoje</div><div class="fs-4 fw-bold" id="stH">0</div></div></div>
+        <div class="col-6 col-md-3"><div class="stat-card"><div class="text-muted small">Sessões únicas</div><div class="fs-4 fw-bold" id="stS">0</div></div></div>
+        <div class="col-6 col-md-3"><div class="stat-card"><div class="text-muted small">Eventos</div><div class="fs-4 fw-bold" id="stA">0</div></div></div>
+      </div>
+
+      <div class="row g-3">
+        <div class="col-lg-7">
+          <div class="table-card">
+            <div class="card-header">Registo de atividade</div>
+            <div class="table-responsive" style="max-height:480px">
+              <table class="table table-sm table-hover mb-0">
+                <thead class="sticky-top bg-white"><tr><th>Quando</th><th>Utilizador</th><th>Ação</th><th>Detalhe</th><th>Página</th></tr></thead>
+                <tbody id="actBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-5">
+          <div class="table-card">
+            <div class="card-header">Páginas mais visitadas</div>
+            <div class="table-responsive">
+              <table class="table table-sm mb-0">
+                <thead><tr><th>Página</th><th class="text-end">Visitas</th></tr></thead>
+                <tbody id="pageBody"></tbody>
+              </table>
+            </div>
+          </div>
+          <div class="table-card mt-3">
+            <div class="card-header">Últimas visitas</div>
+            <div class="table-responsive" style="max-height:260px">
+              <table class="table table-sm mb-0">
+                <thead><tr><th>Quando</th><th>Página</th><th>Sessão</th></tr></thead>
+                <tbody id="visBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/admin-common.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (!requireAuth()) return;
+      document.getElementById('btnLogout').addEventListener('click', logout);
+      document.getElementById('btnRefresh').addEventListener('click', load);
+      document.getElementById('btnClear').addEventListener('click', () => {
+        if (!confirm('Limpar todos os registos de visitas e atividade?')) return;
+        localStorage.removeItem('cm_site_activity');
+        localStorage.removeItem('cm_site_visits');
+        load();
+      });
+      load();
+    });
+
+    function load() {
+      const st = getStats();
+      document.getElementById('stV').textContent = st.visitasTotal;
+      document.getElementById('stH').textContent = st.visitasHoje;
+      document.getElementById('stS').textContent = st.sessoes;
+      document.getElementById('stA').textContent = st.atividades;
+
+      const acts = getActivity(100);
+      document.getElementById('actBody').innerHTML = acts.length
+        ? acts.map(a => `<tr>
+            <td class="small text-nowrap">${formatDate(a.ts)}</td>
+            <td class="small">${a.user||'—'}</td>
+            <td><span class="badge bg-${actionBadge(a.action)}">${a.action}</span></td>
+            <td class="small">${a.detail||'—'}</td>
+            <td class="small">${a.page||'—'}</td>
+          </tr>`).join('')
+        : '<tr><td colspan="5" class="text-center text-muted py-3">Sem atividade. Abra o site público para registar visitas.</td></tr>';
+
+      const visits = getVisits();
+      const counts = {};
+      visits.forEach(v => { counts[v.page] = (counts[v.page]||0) + 1; });
+      const pages = Object.entries(counts).sort((a,b) => b[1]-a[1]).slice(0, 15);
+      document.getElementById('pageBody').innerHTML = pages.length
+        ? pages.map(([p,c]) => `<tr><td class="small">${p}</td><td class="text-end fw-semibold">${c}</td></tr>`).join('')
+        : '<tr><td colspan="2" class="text-center text-muted py-3">—</td></tr>';
+
+      document.getElementById('visBody').innerHTML = visits.slice(0, 30).map(v =>
+        `<tr><td class="small text-nowrap">${formatDate(v.ts)}</td><td class="small">${v.page}</td><td class="small text-muted">${(v.sessionId||'').slice(0,12)}</td></tr>`
+      ).join('') || '<tr><td colspan="3" class="text-center text-muted py-3">—</td></tr>';
+    }
+  </script>
+<script>
+
+    document.querySelectorAll('.nav-group-toggle').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var open = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', open ? 'false' : 'true');
+        var panel = document.querySelector('[data-group-panel="'+btn.getAttribute('data-group')+'"]');
+        if (panel) panel.classList.toggle('collapsed', open);
+      });
+    });
+
+</script>
+</body>
+</html>

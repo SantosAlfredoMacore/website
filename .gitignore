@@ -6,3 +6,29 @@ node_modules/
 *.log
 .DS_Store
 Thumbs.db
+
+# Backups e ficheiros temporarios
+*.backup
+*.bak
+*~
+*.log
+
+# Bases de dados e exportacoes privadas
+database/
+*.sql
+*.dump
+
+# Credenciais e ficheiros sensiveis
+*credenciais*
+.env
+.env.*
+!.env.example
+
+# Dependencias e configuracoes locais
+node_modules/
+.vercel/
+
+# Variantes de ficheiros de backup
+*.backup-*
+*_backup.*
+*~*

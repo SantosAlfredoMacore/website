@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="pt-MZ">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Utilizadores | Admin CM</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <style>
+    :root { --admin-sidebar: #102A43; }
+    body { background: #f4f6f9; min-height: 100vh; }
+    .admin-sidebar { background: var(--admin-sidebar); min-height: 100vh; color: #fff; width: 260px; position: fixed; left: 0; top: 0; z-index: 100; overflow-y: auto; }
+    .admin-sidebar .nav-link { color: rgba(255,255,255,.8); border-radius: 8px; margin: 2px 12px; padding: .55rem 1rem; font-size: .92rem; }
+    .admin-sidebar .nav-link:hover, .admin-sidebar .nav-link.active { background: rgba(255,255,255,.12); color: #fff; }
+    .admin-sidebar .nav-link i { width: 22px; }
+    .admin-main { margin-left: 260px; padding: 1.25rem 1.5rem; }
+    .admin-topbar { background: #fff; border-radius: 12px; padding: .7rem 1.2rem; box-shadow: 0 2px 8px rgba(0,0,0,.06); margin-bottom: 1.25rem; }
+    .table-card { background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,.06); overflow: hidden; }
+    .btn-icon { width: 32px; height: 32px; padding: 0; display: inline-flex; align-items: center; justify-content: center; border-radius: 6px; }
+    .stat-card { background: #fff; border-radius: 12px; padding: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,.06); }
+    @media (max-width: 991.98px) {
+      .admin-sidebar { width: 100%; min-height: auto; position: relative; }
+      .admin-main { margin-left: 0; padding: 1rem; }
+    }
+  
+    .admin-nav .nav-group { margin: 4px 0; }
+    .admin-nav .nav-group-toggle {
+      width: calc(100% - 24px); margin: 2px 12px; text-align: left;
+      background: transparent; border: 0; color: rgba(255,255,255,.85);
+      display: flex; align-items: center; justify-content: space-between;
+      border-radius: 8px; padding: .55rem 1rem; font-size: .92rem; cursor: pointer;
+    }
+    .admin-nav .nav-group-toggle:hover { background: rgba(255,255,255,.1); color: #fff; }
+    .admin-nav .nav-group-toggle .chev { transition: transform .2s; font-size: .8rem; opacity: .7; }
+    .admin-nav .nav-group-toggle[aria-expanded="false"] .chev { transform: rotate(-90deg); }
+    .admin-nav .nav-group-items { padding-left: .5rem; }
+    .admin-nav .nav-group-items.collapsed { display: none; }
+    .admin-nav .nav-group-items .nav-link { font-size: .88rem; padding: .45rem 1rem .45rem 1.4rem; }
+
+  </style>
+</head>
+<body>
+  <div class="d-flex flex-column flex-lg-row">
+    <aside class="admin-sidebar py-3" id="sidebar">
+
+      <div class="px-3 mb-3 d-flex align-items-center gap-2">
+        <img src="../public/logo.png" alt="Logo" height="34" onerror="this.style.display='none'">
+        <span class="fw-bold">Admin CM</span>
+      </div>
+      <nav class="nav flex-column admin-nav">
+        <a class="nav-link" href="dashboard.html"><i class="bi bi-speedometer2"></i> Dashboard</a>
+
+        <div class="nav-group">
+          <button class="nav-link nav-group-toggle" type="button" data-group="conteudo" aria-expanded="true">
+            <span><i class="bi bi-collection"></i> Conteúdo</span>
+            <i class="bi bi-chevron-down chev"></i>
+          </button>
+          <div class="nav-group-items" data-group-panel="conteudo">
+            <a class="nav-link" href="conteudos.html"><i class="bi bi-folder2-open"></i> Gestão de conteúdos</a>
+            <a class="nav-link" href="servicos.html"><i class="bi bi-gear"></i> Serviços</a>
+            <a class="nav-link" href="slider.html"><i class="bi bi-images"></i> Slider / Hero</a>
+            <a class="nav-link" href="imagens.html"><i class="bi bi-image"></i> Imagens</a>
+            <a class="nav-link" href="textos.html"><i class="bi bi-fonts"></i> Textos</a>
+          </div>
+        </div>
+
+        <div class="nav-group">
+          <button class="nav-link nav-group-toggle" type="button" data-group="operacao" aria-expanded="true">
+            <span><i class="bi bi-activity"></i> Operação</span>
+            <i class="bi bi-chevron-down chev"></i>
+          </button>
+          <div class="nav-group-items" data-group-panel="operacao">
+            <a class="nav-link" href="orcamentos.html"><i class="bi bi-file-earmark-text"></i> Orçamentos</a>
+            <a class="nav-link" href="atividade.html"><i class="bi bi-graph-up"></i> Atividade / Visitas</a>
+            <a class="nav-link active" href="utilizadores.html"><i class="bi bi-people"></i> Utilizadores</a>
+          </div>
+        </div>
+
+        <hr class="border-secondary mx-3 my-2">
+        <a class="nav-link" href="../index.html" target="_blank"><i class="bi bi-box-arrow-up-right"></i> Ver Site</a>
+        <a class="nav-link" href="#" id="btnLogout"><i class="bi bi-box-arrow-left"></i> Sair</a>
+      </nav>
+
+    </aside>
+
+    <main class="admin-main flex-grow-1">
+      <div class="admin-topbar d-flex justify-content-between align-items-center flex-wrap gap-2">
+        <div>
+          <h1 class="h5 mb-0">Gestão de Utilizadores</h1>
+          <small class="text-muted">Contas de acesso ao painel de administração</small>
+        </div>
+        <button class="btn btn-primary btn-sm" id="btnAdd"><i class="bi bi-person-plus"></i> Novo utilizador</button>
+      </div>
+
+      <div class="row g-3 mb-3">
+        <div class="col-6 col-md-3"><div class="stat-card"><div class="text-muted small">Total</div><div class="fs-4 fw-bold" id="stTotal">0</div></div></div>
+        <div class="col-6 col-md-3"><div class="stat-card"><div class="text-muted small">Administradores</div><div class="fs-4 fw-bold" id="stAdmin">0</div></div></div>
+        <div class="col-6 col-md-3"><div class="stat-card"><div class="text-muted small">Sessão atual</div><div class="fs-6 fw-bold text-truncate" id="stSession">—</div></div></div>
+      </div>
+
+      <div id="alertBox"></div>
+
+      <div class="table-card">
+        <div class="table-responsive">
+          <table class="table table-hover align-middle mb-0">
+            <thead class="table-light">
+              <tr>
+                <th>Nome</th>
+                <th>Utilizador</th>
+                <th>E-mail</th>
+                <th>Criado</th>
+                <th>Função</th>
+                <th class="text-end">Ações</th>
+              </tr>
+            </thead>
+            <tbody id="tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div class="modal fade" id="userModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalTitle">Novo utilizador</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form id="userForm" autocomplete="off">
+            <input type="hidden" id="editIndex" value="-1">
+            <div class="mb-3">
+              <label class="form-label" for="uName">Nome completo</label>
+              <input type="text" class="form-control" id="uName" required minlength="2">
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="uUser">Utilizador</label>
+              <input type="text" class="form-control" id="uUser" required minlength="3" pattern="[a-zA-Z0-9._-]+" title="Letras, números, ponto, hífen ou underscore">
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="uEmail">E-mail</label>
+              <input type="email" class="form-control" id="uEmail" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="uPass">Palavra-passe <span class="text-muted small" id="passHint">(obrigatória)</span></label>
+              <input type="password" class="form-control" id="uPass" minlength="6">
+            </div>
+            <div class="mb-0">
+              <label class="form-label" for="uRole">Função</label>
+              <select class="form-select" id="uRole">
+                <option value="admin">Administrador</option>
+                <option value="editor">Editor</option>
+              </select>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary" id="btnSaveUser">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/admin-common.js"></script>
+  <script>
+    const USERS_KEY = 'cm_admin_users';
+    let users = [];
+    let modal;
+
+    function getUsers() {
+      try {
+        const raw = localStorage.getItem(USERS_KEY);
+        if (raw) {
+          const list = JSON.parse(raw);
+          if (Array.isArray(list) && list.length) return list;
+        }
+      } catch (e) {}
+      const def = [{
+        username: 'admin',
+        email: 'admin@connectionmozambique.co.mz',
+        name: 'Administrador',
+        password: 'connection2026',
+        role: 'admin',
+        createdAt: new Date().toISOString()
+      }];
+      localStorage.setItem(USERS_KEY, JSON.stringify(def));
+      return def;
+    }
+
+    function saveUsers(list) {
+      localStorage.setItem(USERS_KEY, JSON.stringify(list));
+      if (typeof logActivity === 'function') {
+        logActivity(sessionStorage.getItem('cm_admin_user') || 'admin', 'edit', 'Gestão de utilizadores atualizada');
+      }
+    }
+
+    function formatDate(iso) {
+      if (!iso) return '—';
+      try {
+        return new Date(iso).toLocaleString('pt-MZ', { day: '2-digit', month: '2-digit', year: 'numeric' });
+      } catch (e) { return iso; }
+    }
+
+    function showAlert(msg, type) {
+      document.getElementById('alertBox').innerHTML =
+        '<div class="alert alert-' + (type || 'success') + ' alert-dismissible fade show py-2">' + msg +
+        '<button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>';
+    }
+
+    function render() {
+      users = getUsers();
+      document.getElementById('stTotal').textContent = users.length;
+      document.getElementById('stAdmin').textContent = users.filter(u => (u.role || 'admin') === 'admin').length;
+      document.getElementById('stSession').textContent =
+        sessionStorage.getItem('cm_admin_name') || sessionStorage.getItem('cm_admin_user') || '—';
+
+      const current = sessionStorage.getItem('cm_admin_user') || '';
+      document.getElementById('tbody').innerHTML = users.map((u, i) => {
+        const isSelf = u.username === current;
+        return '<tr>' +
+          '<td>' + (u.name || '—') + (isSelf ? ' <span class="badge bg-info">você</span>' : '') + '</td>' +
+          '<td><code>' + u.username + '</code></td>' +
+          '<td class="small">' + (u.email || '—') + '</td>' +
+          '<td class="small">' + formatDate(u.createdAt) + '</td>' +
+          '<td><span class="badge bg-' + ((u.role || 'admin') === 'admin' ? 'primary' : 'secondary') + '">' + (u.role || 'admin') + '</span></td>' +
+          '<td class="text-end text-nowrap">' +
+            '<button class="btn btn-outline-primary btn-icon btn-edit" data-i="' + i + '" title="Editar"><i class="bi bi-pencil"></i></button> ' +
+            '<button class="btn btn-outline-danger btn-icon btn-del" data-i="' + i + '" title="Eliminar" ' + (isSelf || users.length < 2 ? 'disabled' : '') + '><i class="bi bi-trash"></i></button>' +
+          '</td></tr>';
+      }).join('');
+
+      document.querySelectorAll('.btn-edit').forEach(b => b.addEventListener('click', () => openModal(+b.dataset.i)));
+      document.querySelectorAll('.btn-del').forEach(b => b.addEventListener('click', () => {
+        const i = +b.dataset.i;
+        if (users[i].username === current) {
+          showAlert('Não pode eliminar a sua própria conta.', 'warning');
+          return;
+        }
+        if (users.length < 2) {
+          showAlert('Tem de existir pelo menos um utilizador.', 'warning');
+          return;
+        }
+        if (!confirm('Eliminar o utilizador "' + users[i].username + '"?')) return;
+        users.splice(i, 1);
+        saveUsers(users);
+        render();
+        showAlert('Utilizador eliminado.');
+      }));
+    }
+
+    function openModal(index) {
+      document.getElementById('editIndex').value = index;
+      document.getElementById('passHint').textContent = index < 0 ? '(obrigatória)' : '(deixe em branco para manter)';
+      document.getElementById('uPass').required = index < 0;
+      document.getElementById('uPass').value = '';
+
+      if (index < 0) {
+        document.getElementById('modalTitle').textContent = 'Novo utilizador';
+        document.getElementById('userForm').reset();
+        document.getElementById('editIndex').value = -1;
+        document.getElementById('uRole').value = 'editor';
+      } else {
+        const u = users[index];
+        document.getElementById('modalTitle').textContent = 'Editar utilizador';
+        document.getElementById('uName').value = u.name || '';
+        document.getElementById('uUser').value = u.username || '';
+        document.getElementById('uEmail').value = u.email || '';
+        document.getElementById('uRole').value = u.role || 'admin';
+      }
+      modal.show();
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      if (!requireAuth()) return;
+      document.getElementById('btnLogout').addEventListener('click', logout);
+      modal = new bootstrap.Modal(document.getElementById('userModal'));
+      document.getElementById('btnAdd').addEventListener('click', () => openModal(-1));
+
+      document.getElementById('btnSaveUser').addEventListener('click', function () {
+        const form = document.getElementById('userForm');
+        if (!form.reportValidity()) return;
+
+        const idx = parseInt(document.getElementById('editIndex').value, 10);
+        const name = document.getElementById('uName').value.trim();
+        const username = document.getElementById('uUser').value.trim();
+        const email = document.getElementById('uEmail').value.trim().toLowerCase();
+        const pass = document.getElementById('uPass').value;
+        const role = document.getElementById('uRole').value;
+
+        // unique checks
+        const clashUser = users.findIndex((u, i) => i !== idx && u.username.toLowerCase() === username.toLowerCase());
+        if (clashUser >= 0) {
+          showAlert('Este nome de utilizador já existe.', 'danger');
+          return;
+        }
+        const clashEmail = users.findIndex((u, i) => i !== idx && (u.email || '').toLowerCase() === email);
+        if (clashEmail >= 0) {
+          showAlert('Este e-mail já está registado.', 'danger');
+          return;
+        }
+
+        if (idx < 0) {
+          if (pass.length < 6) {
+            showAlert('A palavra-passe deve ter pelo menos 6 caracteres.', 'danger');
+            return;
+          }
+          users.push({
+            username: username,
+            email: email,
+            name: name,
+            password: pass,
+            role: role,
+            createdAt: new Date().toISOString()
+          });
+        } else {
+          users[idx].name = name;
+          users[idx].username = username;
+          users[idx].email = email;
+          users[idx].role = role;
+          if (pass) {
+            if (pass.length < 6) {
+              showAlert('A palavra-passe deve ter pelo menos 6 caracteres.', 'danger');
+              return;
+            }
+            users[idx].password = pass;
+          }
+        }
+
+        saveUsers(users);
+        modal.hide();
+        render();
+        showAlert(idx < 0 ? 'Utilizador criado com sucesso.' : 'Utilizador atualizado.');
+      });
+
+      render();
+    });
+  </script>
+<script>
+
+    document.querySelectorAll('.nav-group-toggle').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var open = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', open ? 'false' : 'true');
+        var panel = document.querySelector('[data-group-panel="'+btn.getAttribute('data-group')+'"]');
+        if (panel) panel.classList.toggle('collapsed', open);
+      });
+    });
+
+</script>
+</body>
+</html>

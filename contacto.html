@@ -100,7 +100,7 @@
         <div class="card sn-card h-100">
           <div class="card-body">
             <h2 class="h5 d-flex align-items-center gap-2"><span class="sn-contact-heading-icon"><i class="bi bi-envelope-fill" aria-hidden="true"></i></span>E-mail</h2>
-            <p class="mb-0"><a href="mailto:admin@connecctionmozambique.com">admin@connecctionmozambique.com</a></p>
+            <p class="mb-0"><a href="mailto:admin@connectionmozambique.com">admin@connectionmozambique.com</a></p>
           </div>
         </div>
       </div>
@@ -121,7 +121,7 @@
     </div>
   </div>
 </section>
-<section class="sn-section bg-sn-light"><div class="container" style="max-width:760px"><div class="sn-form-shell"><h2 class="sn-section-title">Enviar uma mensagem</h2><p class="text-muted mb-4">Pemba, Cabo Delgado — Moçambique · admin@connecctionmozambique.com</p><form><div class="mb-3"><label class="form-label" for="contactNome">Nome completo *</label><input id="contactNome" name="nome" type="text" class="form-control" autocomplete="name" required></div><div class="mb-3"><label class="form-label" for="contactEmail">E-mail *</label><input id="contactEmail" name="email" type="email" class="form-control" autocomplete="email" required></div><div class="mb-3"><label class="form-label" for="contactMensagem">Mensagem *</label><textarea id="contactMensagem" name="mensagem" class="form-control" rows="5" required></textarea></div><button type="submit" class="btn btn-sn-primary">Enviar mensagem</button></form></div></div></section></main>
+<section id="formulario" class="sn-section bg-sn-light"><div class="container" style="max-width:760px"><div class="sn-form-shell"><h2 class="sn-section-title">Enviar uma mensagem</h2><p class="text-muted mb-4">Pemba, Cabo Delgado — Moçambique · admin@connectionmozambique.com</p><form><div class="mb-3"><label class="form-label" for="contactNome">Nome completo *</label><input id="contactNome" name="nome" type="text" class="form-control" autocomplete="name" required></div><div class="mb-3"><label class="form-label" for="contactEmail">E-mail *</label><input id="contactEmail" name="email" type="email" class="form-control" autocomplete="email" required></div><div class="mb-3"><label class="form-label" for="contactMensagem">Mensagem *</label><textarea id="contactMensagem" name="mensagem" class="form-control" rows="5" required></textarea></div><button type="submit" class="btn btn-sn-primary">Enviar mensagem</button></form></div></div></section></main>
   <footer class="sn-footer py-4"><div class="container text-center">
     <hr class="border-secondary my-4">
       <p class="small text-sn-muted mb-0 text-center">&copy; 2026 CONNECTION MOZAMBIQUE, LDA. Todos os direitos reservados. | www.connectionmozambique.co.mz</p>
@@ -132,5 +132,18 @@
   <script src="js/tracker.js"></script>
   <script src="js/content-loader.js"></script>
   <script src="js/main.js"></script>
+<script>
+(function () {
+  var parametros = new URLSearchParams(window.location.search);
+  var curso = parametros.get('curso');
+  var campo = document.getElementById('contactMensagem');
+
+  if (curso && campo) {
+    campo.value = 'Pretendo receber informações sobre a formação: ' + curso + '.';
+    campo.focus();
+  }
+})();
+</script>
 </body>
 </html>
+
