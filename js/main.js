@@ -165,11 +165,11 @@
     form.addEventListener('click', function (e) {
       var t = e.target;
       if (!t) return;
-      if (t.matches('[data-next]') || (t.closest && t.closest('[data-next]'))) {
+      if (t.matches('[data-next], .btn-next') || (t.closest && t.closest('[data-next], .btn-next'))) {
         e.preventDefault();
         if (validateStep(current)) showStep(current + 1);
       }
-      if (t.matches('[data-prev]') || (t.closest && t.closest('[data-prev]'))) {
+      if (t.matches('[data-prev], .btn-prev') || (t.closest && t.closest('[data-prev], .btn-prev'))) {
         e.preventDefault();
         showStep(current - 1);
       }
@@ -265,3 +265,4 @@
     try { initCounters(); } catch (e) { console.warn('counters', e); }
   });
 })();
+
